@@ -9,7 +9,8 @@ class AddTodo extends Component {
     super();
     this.state = {
       content: "",
-      date: ""
+      date: "",
+      due: null
     };
   }
   // The handleChange function updates the react state with the new input value provided from the user and the current date/time.
@@ -18,7 +19,13 @@ class AddTodo extends Component {
   handleChange = (event) => {
     this.setState({
       content: event.target.value,
-      date: Date().toLocaleString('en-US')
+      date: new Date().toLocaleString('en-US')
+    });
+  };
+
+  handleChangeDue = (event) => {
+    this.setState({
+      due: new Date(event).toLocaleDateString('en-US')
     });
   };
   // The handleSubmit function collects the forms input and puts it into the react state.
@@ -31,7 +38,8 @@ class AddTodo extends Component {
       this.props.addTodo(this.state);
       this.setState({
         content: "",
-        date: ""
+        date: "",
+        due: null
       });
     }
   };
@@ -51,6 +59,16 @@ class AddTodo extends Component {
           onChange={this.handleChange}
           value={this.state.content}
         />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>         
+          <DesktopDatePicker
+              id="new-item-date"
+              label="Due Date"
+              value={this.state.due}
+              onChange={this.handleChangeDue}
+              onSubmit={this.due = null}
+              renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
         <Button
           style={{ marginLeft: "10px" }}
           onClick={this.handleSubmit}
