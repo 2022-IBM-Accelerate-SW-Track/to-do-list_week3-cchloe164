@@ -40,11 +40,9 @@ afterEach(() => {
 
   // set search for text on document
   const check = screen.getByText(/History Test/i);
-  const checkDate = screen.getAllByText(new RegExp(dueDate, "i"));
 
   // check if text on document
   expect(check).toBeInTheDocument();
-  expect(checkDate).toBeInTheDocument();
  });
 
  test('test that App component doesn\'t add a task without task name', () => {
